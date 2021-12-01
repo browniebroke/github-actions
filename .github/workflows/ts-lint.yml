@@ -1,0 +1,22 @@
+name: Lint Typescript Project
+
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        linter:
+          - eslint
+          - prettier
+          - tsc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
+      - run: npm i
+      - run: npm run lint:${{ matrix.linter }}
