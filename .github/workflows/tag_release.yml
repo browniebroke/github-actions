@@ -1,0 +1,24 @@
+name: Update Tags
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Make minor and major tags
+        run: |
+          FULL_TAG=$(echo "${GITHUB_REF}" | sed s@refs/tags/@@g)
+          echo "Full tag: ${FULL_TAG}"
+          MINOR=$(echo "${FULL_TAG}" | cut -d'.' -f1-2)
+          MAJOR=$(echo "${FULL_TAG}" | cut -d'.' -f1)
+          echo "Got minor and major tags: ${MINOR}, ${MAJOR}"
+          git tag "${MINOR}"
+          git tag "${MAJOR}"
+      - name: Push tags
+        run: git push origin HEAD:refs/heads/main --tags --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
