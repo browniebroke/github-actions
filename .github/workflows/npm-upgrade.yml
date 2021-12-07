@@ -2,6 +2,9 @@ name: Upgrade dependencies
 
 on:
   workflow_call:
+    secrets:
+      github_token:
+        required: true
 
 jobs:
   upgrade:
@@ -14,3 +17,9 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm i
       - run: npm upgrade
+      - uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.github_token }}
+          branch: update/npm-upgrade
+          title: Upgrade dependencies
+          commit-message: "chore(deps): Run npm upgrade"
