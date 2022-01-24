@@ -3,7 +3,7 @@ name: Upgrade dependencies
 on:
   workflow_call:
     secrets:
-      github_token:
+      gh_pat:
         required: true
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - run: npm upgrade
       - uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.github_token }}
+          token: ${{ secrets.gh_pat }}
           branch: update/npm-upgrade
           title: Upgrade dependencies
           commit-message: "chore(deps): Run npm upgrade"
