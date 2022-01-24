@@ -17,7 +17,7 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm i
       - run: npm upgrade
-      - uses: peter-evans/create-pull-request@v2
+      - uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.github_token }}
           branch: update/npm-upgrade
