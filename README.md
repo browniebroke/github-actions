@@ -54,3 +54,28 @@ jobs:
     secrets:
       github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+### Cookie taster
+
+To help run some end-to-end tests for a cookiecutter project. The action assumes that bot the template and generated projects are using Poetry to manage their dependencies.
+
+```yaml
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  pytest:
+    uses: browniebroke/github-actions/.github/workflows/cookie-taster.yml@v1
+    with:
+      # All inputs are optional
+      # Full list with their default values:
+      os: "ubuntu-latest"
+      python-version: "3.9"
+      tasting-dir: ".tasting"
+      cc-options: ""
+      pkg-dir: "my-package"
+      command-dir: ""
+      command: "pytest"
+```
