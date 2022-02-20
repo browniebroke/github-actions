@@ -66,16 +66,22 @@ on:
   pull_request:
 
 jobs:
-  pytest:
-    uses: browniebroke/github-actions/.github/workflows/cookie-taster.yml@v1
-    with:
-      # All inputs are optional
-      # Full list with their default values:
-      os: "ubuntu-latest"
-      python-version: "3.9"
-      tasting-dir: ".tasting"
-      cc-options: ""
-      pkg-dir: "my-package"
-      command-dir: ""
-      command: "pytest"
+  cookie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: browniebroke/github-actions/cookie-taster@v1
+        with:
+          # Inputs listed with their default (all optional)
+          os: "ubuntu-latest"
+          python-version: "3.9"
+          tasting-dir: ".tasting"
+          cc-options: ""
+          pkg-dir: "my-package"
+          command-dir: ""
+          command: "pytest"
 ```

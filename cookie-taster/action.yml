@@ -1,0 +1,42 @@
+name: "Cookie Taster"
+description: "To help run end-to-end tests for a cookiecutter template"
+inputs:
+  tasting-dir:
+    description: "The directory to generate projects into."
+    required: false
+    default: ".tasting"
+  cc-options:
+    description: "Options to pass to the cookiecutter CLI."
+    required: false
+    default: ""
+  pkg-dir:
+    description: "The name of the top level directory of generated projects."
+    required: false
+    default: "my-package"
+  command:
+    description: "The command to run into the generated project."
+    required: false
+    default: "pytest"
+  command-dir:
+    description: "The project directory to run the test command."
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - uses: snok/install-poetry@v1
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - run: poetry install
+      shell: bash
+    - run: mkdir -p ${{ inputs.tasting-dir }}
+      shell: bash
+    - working-directory: ${{ inputs.tasting-dir }}
+      run: poetry run cookiecutter ../ --no-input --overwrite-if-exists ${{ inputs.cc-options }}
+      shell: bash
+    - working-directory: ${{ inputs.tasting-dir }}/${{ inputs.pkg-dir }}
+      run: poetry install -E docs
+      shell: bash
+    - working-directory: ${{ inputs.tasting-dir }}/${{ inputs.pkg-dir }}/${{ inputs.command-dir }}
+      run: poetry run ${{ inputs.command }}
+      shell: bash
