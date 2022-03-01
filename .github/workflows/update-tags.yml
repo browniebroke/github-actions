@@ -8,7 +8,7 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Make minor and major tags
         run: |
           FULL_TAG=$(echo "${GITHUB_REF}" | sed s@refs/tags/@@g)
