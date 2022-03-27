@@ -1,0 +1,52 @@
+name: Run Bundlewatch
+
+on:
+  workflow_call:
+    secrets:
+      netlify_auth_token:
+        required: true
+    inputs:
+      netlify_site_name:
+        required: true
+        type: string
+      netlify_site_id:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
+      - run: npm i
+
+      # Deploy prod
+      - name: Deploy to prod
+        run: netlify deploy --build --site ${{ inputs.netlify_site_id }} --auth ${{ secrets.netlify_auth_token }} --prod
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+
+      # Deploy preview and add a comment
+      - name: Deploy preview
+        run: netlify deploy --build --site ${{ inputs.netlify_site_id }} --auth ${{ secrets.netlify_auth_token }} --context deploy-preview --alias deploy-preview-${{ github.event.pull_request.number }}
+        if: ${{ github.event_name == 'pull_request' }}
+      - name: Find existing comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: Netlify Deploy Preview
+      - name: Create or update comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Netlify Deploy Preview: https://deploy-preview-${{ github.event.pull_request.number }}--${{ inputs.netlify_site_name }}.netlify.app
+          edit-mode: replace

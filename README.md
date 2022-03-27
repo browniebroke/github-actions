@@ -52,7 +52,7 @@ jobs:
   upgrade:
     uses: browniebroke/github-actions/.github/workflows/npm-upgrade.yml@v1
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 ```
 
 ### Cookie taster
@@ -84,4 +84,24 @@ jobs:
           pkg-dir: "my-package"
           command-dir: ""
           command: "pytest"
+```
+
+### Netlify deploy
+
+Deploy site to Netlify.
+
+```yaml
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  deploy:
+    uses: browniebroke/github-actions/.github/workflows/netlify-deploy.yml@v1
+    secrets:
+      netlify_auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    with:
+      netlify_site_name: browniebroke
+      netlify_site_id: 229636ec-152c-4cef-b9fe-481f3ca066ab
 ```
