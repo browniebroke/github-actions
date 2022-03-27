@@ -103,5 +103,4 @@ jobs:
       netlify_auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     with:
       netlify_site_name: browniebroke
-      netlify_site_id: 229636ec-152c-4cef-b9fe-481f3ca066ab
 ```

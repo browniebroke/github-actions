@@ -9,9 +9,6 @@ on:
       netlify_site_name:
         required: true
         type: string
-      netlify_site_id:
-        required: true
-        type: string
 
 jobs:
   deploy:
@@ -26,12 +23,12 @@ jobs:
 
       # Deploy prod
       - name: Deploy to prod
-        run: netlify deploy --build --site ${{ inputs.netlify_site_id }} --auth ${{ secrets.netlify_auth_token }} --prod
+        run: netlify deploy --build --site ${{ inputs.netlify_site_name }} --auth ${{ secrets.netlify_auth_token }} --prod
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
 
       # Deploy preview and add a comment
       - name: Deploy preview
-        run: netlify deploy --build --site ${{ inputs.netlify_site_id }} --auth ${{ secrets.netlify_auth_token }} --context deploy-preview --alias deploy-preview-${{ github.event.pull_request.number }}
+        run: netlify deploy --build --site ${{ inputs.netlify_site_name }} --auth ${{ secrets.netlify_auth_token }} --context deploy-preview --alias deploy-preview-${{ github.event.pull_request.number }}
         if: ${{ github.event_name == 'pull_request' }}
       - name: Find existing comment
         if: ${{ github.event_name == 'pull_request' }}
