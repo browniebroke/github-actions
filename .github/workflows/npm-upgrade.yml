@@ -22,4 +22,4 @@ jobs:
           token: ${{ secrets.gh_pat }}
           branch: update/npm-upgrade
           title: Upgrade dependencies
-          commit-message: "chore(deps): Run npm upgrade"
+          commit-message: "chore(deps): run npm upgrade"
