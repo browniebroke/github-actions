@@ -38,7 +38,7 @@ jobs:
       bundlewatch_token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
 ```
 
-### Dependencies upgrader
+### NPM Dependencies upgrader
 
 Run npm upgrade and creates a pull request:
 
@@ -51,6 +51,23 @@ on:
 jobs:
   upgrade:
     uses: browniebroke/github-actions/.github/workflows/npm-upgrade.yml@v1
+    secrets:
+      gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+```
+
+### Poetry Dependencies upgrader
+
+Clear the Poetry lock file and regenerate it:
+
+```yaml
+name: Upgrader
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upgrade:
+    uses: browniebroke/github-actions/.github/workflows/poetry-upgrade.yml@v1
     secrets:
       gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 ```
