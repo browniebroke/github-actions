@@ -29,6 +29,8 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm i
       - run: ${{ inputs.build_script }}
+        env:
+          PRODUCTION_DEPLOY: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
