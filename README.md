@@ -117,7 +117,8 @@ jobs:
   deploy:
     uses: browniebroke/github-actions/.github/workflows/netlify-deploy.yml@v1
     with:
-      publish_dir: "public"
+      publish_dir: "public" # optional
+      build_script: "npm run build" # optional
       netlify_site_id: "229636ec-152c-4cef-b9fe-481f3ca066ab"
     secrets:
       netlify_auth_token: ${{ secrets.NETLIFY_AUTH_TOKEN }}

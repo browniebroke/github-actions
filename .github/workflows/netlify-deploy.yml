@@ -13,6 +13,10 @@ on:
         required: false
         default: "public"
         type: string
+      build_script:
+        required: false
+        default: "npm run build"
+        type: string
 
 jobs:
   deploy:
@@ -24,7 +28,7 @@ jobs:
           cache: "npm"
           node-version-file: ".nvmrc"
       - run: npm i
-      - run: npm run build
+      - run: ${{ inputs.build_script }}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
