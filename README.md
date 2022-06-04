@@ -74,7 +74,7 @@ jobs:
 
 ### Cookie taster
 
-To help run some end-to-end tests for a cookiecutter project. The action assumes that bot the template and generated projects are using Poetry to manage their dependencies.
+To help run some end-to-end tests for a cookiecutter project. The action assumes that both the template and generated projects are using Poetry to manage their dependencies.
 
 ```yaml
 name: CI
@@ -100,7 +100,7 @@ jobs:
           cc-options: ""
           pkg-dir: "my-package"
           command-dir: ""
-          command: "pytest"
+          command: "poetry run pytest"
 ```
 
 ### Netlify deploy
