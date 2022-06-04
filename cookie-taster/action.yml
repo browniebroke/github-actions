@@ -16,7 +16,7 @@ inputs:
   command:
     description: "The command to run into the generated project."
     required: false
-    default: "pytest"
+    default: "poetry run pytest"
   command-dir:
     description: "The project directory to run the test command."
     required: false
@@ -38,5 +38,5 @@ runs:
       run: poetry install -E docs
       shell: bash
     - working-directory: ${{ inputs.tasting-dir }}/${{ inputs.pkg-dir }}/${{ inputs.command-dir }}
-      run: poetry run ${{ inputs.command }}
+      run: ${{ inputs.command }}
       shell: bash
