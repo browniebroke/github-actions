@@ -83,7 +83,7 @@ on:
   # every day at midnight
   schedule:
     - cron: "0 0 * * *"
-  # on demand  
+  # on demand
   workflow_dispatch:
 
 jobs:
