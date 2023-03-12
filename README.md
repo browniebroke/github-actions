@@ -72,6 +72,33 @@ jobs:
       gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 ```
 
+### Pre-commit auto-update
+
+Run auto-update for [pre-commit](https://pre-commit.com/). Consider using [pre-commit.ci](https://pre-commit.ci/) instead.
+
+```yaml
+name: Pre-commit auto-update
+
+on:
+  # every day at midnight
+  schedule:
+    - cron: "0 0 * * *"
+  # on demand  
+  workflow_dispatch:
+
+jobs:
+  upgrade:
+    uses: browniebroke/github-actions/.github/workflows/pre-commit-autoupdate.yml@v1
+    secrets:
+      gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+    with:
+      # Inputs listed with their default (all optional)
+      python_version: "3.11"
+      branch_name: "update/pre-commit-hooks"
+      pull_request_title: "chore(deps): upgrade dependencies"
+      commit_message: "chore(deps): upgrade dependencies"
+```
+
 ### Cookie taster
 
 To help run some end-to-end tests for a cookiecutter project. The action assumes that both the template and generated projects are using Poetry to manage their dependencies.

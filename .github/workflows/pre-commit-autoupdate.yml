@@ -1,0 +1,45 @@
+name: Pre-commit auto-update
+
+on:
+  workflow_call:
+    secrets:
+      gh_pat:
+        required: true
+    inputs:
+      python_version:
+        required: false
+        default: "3.11"
+        type: string
+      branch_name:
+        required: false
+        default: "update/pre-commit-hooks"
+        type: string
+      pull_request_title:
+        required: false
+        default: "chore(deps): upgrade dependencies"
+        type: string
+      commit_message:
+        required: false
+        default: "chore(deps): upgrade dependencies"
+        type: string
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python_version }}
+      - run: pip install pre-commit
+        shell: bash
+      - run: pre-commit autoupdate
+        shell: bash
+      - run: pre-commit run --all-files
+        shell: bash
+      - uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.gh_pat }}
+          branch: ${{ inputs.branch_name }}
+          title: ${{ inputs.pull_request_title }}
+          commit-message: ${{ inputs.commit_message }}
