@@ -43,7 +43,7 @@ jobs:
           PRODUCTION_DEPLOY: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           REVIEW_ID: ${{ github.event.number }}
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v2.1
         with:
           publish-dir: ${{ inputs.publish_dir }}
           production-deploy: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
