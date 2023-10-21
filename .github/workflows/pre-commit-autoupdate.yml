@@ -22,6 +22,10 @@ on:
         required: false
         default: "chore(deps): upgrade dependencies"
         type: string
+      config_path:
+        required: false
+        default: ".pre-commit-config.yaml"
+        type: string
 
 jobs:
   auto-update:
@@ -36,7 +40,7 @@ jobs:
           python-version: ${{ inputs.python_version }}
       - run: pip install pre-commit
         shell: bash
-      - run: pre-commit autoupdate
+      - run: pre-commit autoupdate --config ${{ inputs.config_path }}
         shell: bash
       - run: pre-commit run --all-files
         shell: bash
