@@ -93,6 +93,7 @@ jobs:
       gh_pat: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
     with:
       # Inputs listed with their default (all optional)
+      config_path: ".pre-commit-config.yaml"  # path is relative to repository root
       python_version: "3.11"
       branch_name: "update/pre-commit-hooks"
       pull_request_title: "chore(deps): upgrade dependencies"
