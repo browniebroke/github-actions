@@ -6,6 +6,7 @@ on:
 jobs:
   lint:
     strategy:
+      fail-fast: false
       matrix:
         linter:
           - eslint
