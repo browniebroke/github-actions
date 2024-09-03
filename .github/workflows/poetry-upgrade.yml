@@ -18,7 +18,7 @@ jobs:
           cache: "poetry"
       - run: rm poetry.lock
       - run: poetry lock -n
-      - uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.gh_pat }}
           branch: update/poetry-upgrade
