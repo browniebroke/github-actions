@@ -1,0 +1,27 @@
+name: Upgrade dependencies
+
+on:
+  workflow_call:
+    secrets:
+      gh_pat:
+        required: true
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: "true"
+      - run: rm uv.lock
+      - run: uv sync --no-python-downloads
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.gh_pat }}
+          branch: update/uv-upgrade
+          title: "chore(deps): upgrade dependencies"
+          commit-message: "chore(deps): upgrade dependencies"
