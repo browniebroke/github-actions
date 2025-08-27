@@ -37,7 +37,7 @@ jobs:
         with:
           cache: "npm"
           node-version: ${{ inputs.node-version }}
-      - run: npm i
+      - run: npm ci
       - run: ${{ inputs.build_script }}
         env:
           PRODUCTION_DEPLOY: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
