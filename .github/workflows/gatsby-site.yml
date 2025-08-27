@@ -21,7 +21,7 @@ jobs:
         with:
           cache: "npm"
           node-version-file: ".nvmrc"
-      - run: npm i
+      - run: npm ci
       - run: npm run lint:${{ matrix.linter }}
 
   bundlewatch:
@@ -32,7 +32,7 @@ jobs:
         with:
           cache: "npm"
           node-version-file: ".nvmrc"
-      - run: npm i
+      - run: npm ci
       - run: npm run build
       - run: npm run bundlewatch
         env:
