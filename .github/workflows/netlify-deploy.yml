@@ -28,12 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - if: ${{ inputs.node_version == '.nvmrc' }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           cache: "npm"
           node-version-file: ".nvmrc"
       - if: ${{ inputs.node_version != '.nvmrc' }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           cache: "npm"
           node-version: ${{ inputs.node-version }}
