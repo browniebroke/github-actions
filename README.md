@@ -149,6 +149,13 @@ jobs:
       publish_dir: "public" # optional
       build_script: "npm run build" # optional
       node_version: ".nvmrc" # optional
+      # optional, defaults to true for a push on the main branch
+      production_deploy: true
     secrets:
       netlify_auth_token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 ```
+
+The `production_deploy` input is passed to the Netlify deploy as well as to the
+build script, via the `PRODUCTION_DEPLOY` environment variable. Setting it
+explicitly is useful to deploy to production from an event other than a push on
+the main branch, such as a `repository_dispatch` triggered by a CMS webhook.
