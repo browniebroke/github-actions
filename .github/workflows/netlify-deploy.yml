@@ -46,6 +46,9 @@ jobs:
         env:
           PRODUCTION_DEPLOY: ${{ inputs.production_deploy }}
           REVIEW_ID: ${{ github.event.number }}
+          # Next.js only exposes variables with this prefix to the build
+          NEXT_PUBLIC_PRODUCTION_DEPLOY: ${{ inputs.production_deploy }}
+          NEXT_PUBLIC_REVIEW_ID: ${{ github.event.number }}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v4.0
         with:
