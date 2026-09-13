@@ -156,6 +156,15 @@ jobs:
 ```
 
 The `production_deploy` input is passed to the Netlify deploy as well as to the
-build script, via the `PRODUCTION_DEPLOY` environment variable. Setting it
-explicitly is useful to deploy to production from an event other than a push on
-the main branch, such as a `repository_dispatch` triggered by a CMS webhook.
+build script. Setting it explicitly is useful to deploy to production from an
+event other than a push on the main branch, such as a `repository_dispatch`
+triggered by a CMS webhook.
+
+The build script runs with the following environment variables, each in a plain
+and a `NEXT_PUBLIC_` prefixed flavour, since Next.js only exposes the latter to
+the build:
+
+| Variable            | Value                                          |
+| ------------------- | ---------------------------------------------- |
+| `PRODUCTION_DEPLOY` | the `production_deploy` input                  |
+| `REVIEW_ID`         | the pull request number, empty outside of a PR |
