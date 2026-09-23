@@ -4,14 +4,14 @@ on:
   workflow_call:
 
 jobs:
-  lint:
+  check:
     strategy:
       fail-fast: false
       matrix:
-        linter:
-          - eslint
-          - prettier
-          - tsc
+        check:
+          - lint
+          - format
+          - types
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -20,4 +20,4 @@ jobs:
           cache: "npm"
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: npm run lint:${{ matrix.linter }}
+      - run: npm run check:${{ matrix.check }}
