@@ -8,7 +8,11 @@ A collection of my own GitHub actions
 
 ### Lint for a Typescript project
 
-Run a set of linting tools (eslint, prettier & tsc) for a typical Typescript project:
+Run a set of checks for a typical Typescript project. Each check runs as a separate job and invokes the corresponding npm script, which the project must define:
+
+- `check:lint`: code linting (e.g. `eslint .`)
+- `check:format`: formatting check (e.g. `prettier --check .`)
+- `check:types`: type checking (e.g. `tsc`)
 
 ```yaml
 name: CI
